@@ -1,0 +1,904 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Admin Panel — Rishikesh CHS</title>
+  <meta name="description" content="Committee member admin panel for Rishikesh Co-operative Housing Society." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+  <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js" defer></script>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     NAVBAR
+═══════════════════════════════════════ -->
+<nav class="nav" role="navigation" aria-label="Admin navigation">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo" aria-label="Back to society homepage">
+      <div class="nav__logo-mark">R</div>
+      <div class="nav__logo-text-wrap">
+        <span class="nav__logo-name">Rishikesh <em>CHS</em></span>
+        <span class="nav__logo-sub">Admin Panel</span>
+      </div>
+    </a>
+    <div class="nav__links" id="adminNavLinks">
+      <a href="#dashboard" class="nav__link admin-nav-link active" data-section="dashboard">Dashboard</a>
+      <a href="#tools" class="nav__link admin-nav-link" data-section="tools">Tools</a>
+      <a href="#reports" class="nav__link admin-nav-link" data-section="reports">Reports</a>
+    </div>
+    <div class="nav__actions">
+      <span class="admin-role-badge" id="adminRoleBadge" hidden>
+        <i class="fa-solid fa-shield-halved"></i>
+        <span id="adminRoleLabel">Secretary</span>
+      </span>
+      <a href="index.html" class="btn btn--ghost nav__pay-btn">
+        <i class="fa-solid fa-arrow-left"></i> Back to Site
+      </a>
+      <button class="btn btn--ghost nav__pay-btn" id="adminLogoutBtn" hidden>
+        <i class="fa-solid fa-right-from-bracket"></i> Logout
+      </button>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ═══════════════════════════════════════
+     LOGIN GATE
+═══════════════════════════════════════ -->
+<main id="adminApp">
+
+  <section class="admin-login" id="adminLoginSection" aria-labelledby="login-h1">
+    <div class="admin-login__card glass">
+      <div class="admin-login__logo">
+        <div class="nav__logo-mark" style="width:52px;height:52px;font-size:1.4rem;border-radius:14px;">R</div>
+      </div>
+      <p class="label" style="text-align:center;margin-bottom:var(--s1)">Rishikesh CHS</p>
+      <h1 class="admin-login__h1" id="login-h1">Committee Login</h1>
+      <p class="admin-login__sub">Access is restricted to authorised managing committee members only.</p>
+
+      <form class="admin-login__form" id="adminLoginForm" novalidate>
+        <div class="admin-field">
+          <label for="adminRole" class="admin-field__label">Your Role</label>
+          <select id="adminRole" class="security-select admin-select" required>
+            <option value="">— Select your position —</option>
+            <option value="secretary">Secretary</option>
+            <option value="chairman">Chairman</option>
+            <option value="treasurer">Treasurer</option>
+            <option value="committee">All Committee</option>
+          </select>
+        </div>
+        <div class="admin-field">
+          <label for="adminPin" class="admin-field__label">Access PIN</label>
+          <div class="admin-pin-wrap">
+            <input
+              type="password"
+              id="adminPin"
+              class="admin-input"
+              placeholder="Enter PIN"
+              maxlength="6"
+              inputmode="numeric"
+              autocomplete="current-password"
+              required
+            />
+            <button type="button" class="admin-pin-toggle" id="pinToggle" aria-label="Show PIN">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
+          <p class="admin-field__hint">Demo PIN: <code>1234</code> (replace with real auth in production)</p>
+        </div>
+        <p class="admin-login__error" id="loginError" hidden>
+          <i class="fa-solid fa-triangle-exclamation"></i> Invalid role or PIN. Please try again.
+        </p>
+        <button type="submit" class="btn btn--primary admin-login__submit" id="loginSubmitBtn">
+          <i class="fa-solid fa-right-to-bracket"></i> Enter Admin Panel
+        </button>
+      </form>
+    </div>
+
+    <!-- Dramatic Entrance Overlay -->
+    <div id="adminAuthOverlay" aria-hidden="true">
+      <div class="unlock-shutter">
+        <div class="unlock-beam"></div>
+        <div class="nav__logo-mark" style="width:40px;height:40px;font-size:1.1rem">R</div>
+      </div>
+      <h2 style="color:white;margin-top:var(--s4);letter-spacing:2px;font-weight:300">AUTHORISING...</h2>
+      <p style="color:var(--txt-3);font-size:0.8rem">Decrypting society records</p>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       ADMIN DASHBOARD (shown after login)
+  ═══════════════════════════════════════ -->
+  <div class="admin-panel" id="adminPanel" hidden>
+
+    <!-- Welcome bar -->
+    <div class="admin-welcome">
+      <div class="container">
+        <div class="admin-welcome__inner">
+          <div>
+            <p class="label">Committee Panel</p>
+            <h2 class="admin-welcome__h2">Good <span id="greetingTime">Evening</span>, <span id="greetingRole">Secretary</span></h2>
+            <p class="admin-welcome__sub">Here's what's happening at Rishikesh CHS today. Review pending items and take action below.</p>
+          </div>
+          <div class="admin-welcome__meta">
+            <div class="admin-role-pill" id="rolePill">
+              <i class="fa-solid fa-shield-halved"></i>
+              <span id="rolePillLabel">Secretary</span>
+            </div>
+            <p class="admin-welcome__time" id="adminTime"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ACTION HUB (Priority Tasks) ── -->
+    <section class="admin-dash-grid-section">
+      <div class="container">
+        <div class="section-header-flex" style="margin-bottom:var(--s4)">
+          <div>
+            <p class="label">Action Center</p>
+            <h2 class="admin-welcome__h2" style="font-size:clamp(1.4rem,2.5vw,2rem);margin-bottom:0">Pending Approvals & Complaints</h2>
+          </div>
+        </div>
+        
+        <div class="admin-dash-grid admin-dash-grid--priority">
+          <!-- Pending Document Requests -->
+          <div class="dash-card">
+            <div class="dash-card__header">
+              <h3><i class="fa-solid fa-file-signature"></i> Waiting for Approval</h3>
+              <span class="dash-badge dash-badge--amber">5 Pending</span>
+            </div>
+            <div class="pending-list">
+              <div class="pending-item">
+                <div class="pending-item__icon" style="background:rgba(245,158,11,0.12);color:var(--amber)">
+                  <i class="fa-solid fa-passport"></i>
+                </div>
+                <div class="pending-item__body">
+                  <strong>Passport NOC — A-101 (Anita Joshi)</strong>
+                  <span>Requested 20 Apr · All dues cleared</span>
+                </div>
+                <div class="pending-item__actions">
+                  <button class="act-btn act-btn--approve" title="Approve"><i class="fa-solid fa-check"></i></button>
+                  <button class="act-btn act-btn--reject" title="Reject"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+              </div>
+              <div class="pending-item">
+                <div class="pending-item__icon" style="background:rgba(79,127,255,0.12);color:var(--blue)">
+                  <i class="fa-solid fa-building-columns"></i>
+                </div>
+                <div class="pending-item__body">
+                  <strong>Bank Loan NOC — B-310 (Suresh Patil)</strong>
+                  <span>Requested 19 Apr · ₹2,400 dues pending</span>
+                </div>
+                <div class="pending-item__actions">
+                  <button class="act-btn act-btn--approve" title="Approve"><i class="fa-solid fa-check"></i></button>
+                  <button class="act-btn act-btn--reject" title="Reject"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+              </div>
+              <div class="pending-item">
+                <div class="pending-item__icon" style="background:rgba(34,197,94,0.12);color:var(--green)">
+                  <i class="fa-solid fa-key"></i>
+                </div>
+                <div class="pending-item__body">
+                  <strong>Tenant Registration — C-203 (Ravi Kumar)</strong>
+                  <span>Requested 18 Apr · Lease: May–Nov 2025</span>
+                </div>
+                <div class="pending-item__actions">
+                  <button class="act-btn act-btn--approve" title="Approve"><i class="fa-solid fa-check"></i></button>
+                  <button class="act-btn act-btn--reject" title="Reject"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+              </div>
+            </div>
+            <div class="dash-card__footer">
+              <button class="btn btn--ghost">View All Requests <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+          </div>
+
+          <!-- Active Complaints Tracker -->
+          <div class="dash-card">
+            <div class="dash-card__header">
+              <h3><i class="fa-solid fa-triangle-exclamation"></i> Active Complaints</h3>
+              <span class="dash-badge dash-badge--orange">7 Open</span>
+            </div>
+            <div class="complaints-list">
+              <div class="complaint-row">
+                <span class="comp-id">#C-041</span>
+                <div class="comp-body">
+                  <strong>Lift breakdown — A Wing</strong>
+                  <span>Reported by Flat A-301 · 20 Apr</span>
+                </div>
+                <span class="comp-status comp-status--urgent">Urgent</span>
+              </div>
+              <div class="complaint-row">
+                <span class="comp-id">#C-040</span>
+                <div class="comp-body">
+                  <strong>Water leakage — Terrace, D Wing</strong>
+                  <span>Reported by Flat D-505 · 18 Apr</span>
+                </div>
+                <span class="comp-status comp-status--progress">In Progress</span>
+              </div>
+              <div class="complaint-row">
+                <span class="comp-id">#C-037</span>
+                <div class="comp-body">
+                  <strong>Street light fused — Compound</strong>
+                  <span>Reported by Flat B-102 · 13 Apr</span>
+                </div>
+                <span class="comp-status comp-status--overdue">Overdue</span>
+              </div>
+            </div>
+            <div class="dash-card__footer">
+              <button class="btn btn--ghost">View All Complaints <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── INTELLIGENCE & COLLECTIONS (Secondary) ── -->
+    <section class="admin-dash-grid-section" style="background:var(--ink-2);border-top:1px solid var(--border)">
+      <div class="container">
+        <div class="admin-dash-grid">
+          <!-- Latest Queries -->
+          <div class="dash-card">
+            <div class="dash-card__header">
+              <h3><i class="fa-solid fa-inbox"></i> Latest Resident Queries</h3>
+            </div>
+            <div class="dash-card__list" id="dashboardQueries">
+              <!-- Dynamic content via JS -->
+            </div>
+            <div class="dash-card__footer">
+              <button class="btn btn--ghost">All Messages <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+          </div>
+
+          <!-- Mini Defaulters View -->
+          <div class="dash-card">
+            <div class="dash-card__header">
+              <h3><i class="fa-solid fa-rupee-sign"></i> Collections Status</h3>
+              <span class="dash-badge dash-badge--red">Financial Risk</span>
+            </div>
+            <div class="defaulters-table-wrap">
+              <table class="defaulters-table">
+                <thead>
+                  <tr>
+                    <th>Flat</th>
+                    <th>Resident</th>
+                    <th>Due</th>
+                    <th>O/D</th>
+                    <th>Quick Action</th>
+                  </tr>
+                </thead>
+                <tbody id="dashboardDefaulters">
+                  <!-- Dynamic content via JS -->
+                </tbody>
+              </table>
+            </div>
+            <div class="dash-card__footer">
+              <button class="btn btn--ghost">Full Defaulter List <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TOOLS SECTION ── -->
+    <section class="admin-tools" id="tools" aria-labelledby="tools-h2">
+      <div class="container">
+        <div class="tools-section-header">
+          <p class="label">Management Tools</p>
+          <h2 class="admin-welcome__h2" id="tools-h2" style="font-size:clamp(1.4rem,2.5vw,2rem);margin-bottom:var(--s2)">Committee Action Centre</h2>
+          <p style="font-size:0.9rem;color:var(--txt-2);margin-bottom:var(--s6)">Access billing, compliance, and reporting tools based on your role.</p>
+        </div>
+        <div class="ct__grid admin-tools__grid">
+
+          <!-- Meeting Minutes & AGM — Secretary -->
+          <button class="ct-card admin-tool-card" data-module="meetings" data-roles="secretary,committee" aria-label="Meeting Minutes &amp; AGM">
+            <div class="ct-card__icon">
+              <iconify-icon icon="mdi:clipboard-text-clock" width="26"></iconify-icon>
+            </div>
+            <h3>Meeting Minutes &amp; AGM</h3>
+            <p>Record AGM, SGM, and MC Meeting minutes per MCS Act. Publish for member review.</p>
+            <span class="ct-card__tag">Secretary</span>
+          </button>
+
+          <!-- Statutory Reports — Secretary / Chairperson -->
+          <button class="ct-card admin-tool-card" data-module="statutory" data-roles="secretary,chairman,committee" aria-label="Statutory Reports &amp; Registers">
+            <div class="ct-card__icon">
+              <iconify-icon icon="mdi:file-chart" width="26"></iconify-icon>
+            </div>
+            <h3>Statutory Reports &amp; Registers</h3>
+            <p>Member Registrar, Property Registrar, Share Certificate Registrar — always up to date.</p>
+            <span class="ct-card__tag">Secretary / Chairperson</span>
+          </button>
+
+          <!-- Audit-Ready Reports — All Committee -->
+          <button class="ct-card admin-tool-card" data-module="audit" data-roles="secretary,chairman,treasurer,committee" aria-label="Audit-Ready Reports">
+            <div class="ct-card__icon">
+              <iconify-icon icon="mdi:chart-pie" width="26"></iconify-icon>
+            </div>
+            <h3>Audit-Ready Reports</h3>
+            <p>Income &amp; expenditure, receipt &amp; payment, Form-I, Form-J — ready in seconds for the CA.</p>
+            <span class="ct-card__tag">All Committee</span>
+          </button>
+
+          <!-- Billing & Accounting — Treasurer -->
+          <button class="ct-card admin-tool-card" data-module="accounting" data-roles="treasurer,committee" aria-label="Billing &amp; Accounting">
+            <div class="ct-card__icon">
+              <iconify-icon icon="mdi:calculator-variant" width="26"></iconify-icon>
+            </div>
+            <h3>Billing &amp; Accounting</h3>
+            <p>Generate maintenance bills, track income &amp; expenses, view ledgers and defaulter lists.</p>
+            <span class="ct-card__tag">Treasurer</span>
+          </button>
+
+          <!-- Defaulter Management — Treasurer / Secretary -->
+          <button class="ct-card admin-tool-card" data-module="defaulter" data-roles="treasurer,secretary,committee" aria-label="Defaulter Management">
+            <div class="ct-card__icon">
+              <iconify-icon icon="mdi:alert-octagram" width="26"></iconify-icon>
+            </div>
+            <h3>Defaulter Management</h3>
+            <p>Auto-reminders, defaulter lists, and legally valid Section 101 notices under MCS Act 1960.</p>
+            <span class="ct-card__tag">Treasurer / Secretary</span>
+          </button>
+
+          <!-- Pay-in Slip Generator — Treasurer -->
+          <button class="ct-card admin-tool-card" data-module="payinslip" data-roles="treasurer,committee" aria-label="Pay-in Slip Generator">
+            <div class="ct-card__icon">
+              <iconify-icon icon="mdi:bank-outline" width="26"></iconify-icon>
+            </div>
+            <h3>Pay-in Slip Generator</h3>
+            <p>Auto-generate bank deposit slips from cheque receipts — no manual writing.</p>
+            <span class="ct-card__tag">Treasurer</span>
+          </button>
+
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /admin-panel -->
+
+</main>
+
+
+<!-- ═══════════════════════════════════════
+     ADMIN MODAL
+═══════════════════════════════════════ -->
+<div class="modal" id="adminModal" hidden role="dialog" aria-labelledby="adminModalTitle" aria-modal="true">
+  <div class="modal__backdrop" id="adminModalBackdrop"></div>
+  <div class="modal__panel">
+    <button class="modal__close" id="adminModalClose" aria-label="Close">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="modal__icon" id="adminModalIcon"></div>
+    <p class="modal__tag" id="adminModalTag"></p>
+    <h2 class="modal__title" id="adminModalTitle"></h2>
+    <p class="modal__desc" id="adminModalDesc"></p>
+
+    <div class="modal__how" id="adminModalHow">
+      <h3>Key Functions</h3>
+      <ol class="modal__steps" id="adminModalSteps"></ol>
+    </div>
+
+    <div class="modal__benefits" id="adminModalBenefits">
+      <h3>Who Can Access</h3>
+      <ul class="modal__list" id="adminModalBenefitsList"></ul>
+    </div>
+
+    <div class="modal__footer">
+      <button class="btn btn--primary" id="adminModalCTA">
+        <i class="fa-solid fa-arrow-right"></i> Open Tool
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<script>
+/* ─────────────────────────────────────────────
+   ADMIN DATA
+───────────────────────────────────────────── */
+const ADMIN_MODULES = {
+  meetings: {
+    icon: '<iconify-icon icon="mdi:clipboard-text-clock" width="28"></iconify-icon>',
+    tag: 'Secretary',
+    title: 'Meeting Minutes & AGM',
+    desc: 'Record, store, and publish minutes for AGM, SGM, and MC meetings as required under the Maharashtra Co-operative Societies Act, 1960.',
+    steps: [
+      'Select meeting type: AGM / SGM / MC Meeting.',
+      'Enter date, attendees, agenda items, and resolutions.',
+      'Review the auto-formatted minutes document.',
+      'E-sign and publish to the member portal for review.',
+      'Archive with timestamped PDF for audit trail.',
+    ],
+    access: [
+      'Secretary — full create, edit, publish access.',
+      'Chairman — read and co-sign access.',
+      'All Committee — read-only access to published minutes.',
+    ],
+  },
+  statutory: {
+    icon: '<iconify-icon icon="mdi:file-chart" width="28"></iconify-icon>',
+    tag: 'Secretary / Chairperson',
+    title: 'Statutory Reports & Registers',
+    desc: 'Maintain legally mandated registers — Member Registrar, Property Registrar, and Share Certificate Registrar — per MCS Act requirements.',
+    steps: [
+      'Open the desired register from the list.',
+      'Add, update, or transfer entries as needed.',
+      'System auto-numbers share certificates and logs changes.',
+      'Export signed PDF for submission to the Registrar\'s office.',
+    ],
+    access: [
+      'Secretary — full edit and export access.',
+      'Chairman / Chairperson — review and sign authority.',
+      'Treasurer — read-only for cross-reference.',
+    ],
+  },
+  audit: {
+    icon: '<iconify-icon icon="mdi:chart-pie" width="28"></iconify-icon>',
+    tag: 'All Committee',
+    title: 'Audit-Ready Reports',
+    desc: 'One-click generation of Income & Expenditure statements, Receipt & Payment accounts, and statutory forms Form-I and Form-J for the CA.',
+    steps: [
+      'Select the financial year for the report.',
+      'Choose report type: I&E, R&P, Form-I, or Form-J.',
+      'System compiles data from all recorded transactions.',
+      'Review the drafted report and export as PDF or Excel.',
+      'Share directly with the society\'s auditor.',
+    ],
+    access: [
+      'All Committee Members — full access.',
+      'Treasurer — primary responsibility.',
+      'Secretary — secondary review.',
+    ],
+  },
+  accounting: {
+    icon: '<iconify-icon icon="mdi:calculator-variant" width="28"></iconify-icon>',
+    tag: 'Treasurer',
+    title: 'Billing & Accounting',
+    desc: 'Generate monthly maintenance bills, record all income and expenses, maintain ledgers, and track payment status for every flat.',
+    steps: [
+      'Set billing cycle and maintenance amount for each wing.',
+      'Generate bills — system auto-sends to resident portals.',
+      'Record received payments and link to flat accounts.',
+      'View real-time outstanding dues and ledger summary.',
+      'Export defaulter list for follow-up.',
+    ],
+    access: [
+      'Treasurer — full billing and ledger access.',
+      'Secretary — view-only access to billing summaries.',
+      'Chairman — view annual financial summary.',
+    ],
+  },
+  defaulter: {
+    icon: '<iconify-icon icon="mdi:alert-octagram" width="28"></iconify-icon>',
+    tag: 'Treasurer / Secretary',
+    title: 'Defaulter Management',
+    desc: 'Automated reminders, structured defaulter lists, and legally valid Section 101 notices under the MCS Act 1960 for outstanding maintenance dues.',
+    steps: [
+      'System auto-flags flats with dues older than 30/60/90 days.',
+      'Send automated payment reminder via portal and SMS.',
+      'Generate Section 101 notice PDF with legally required language.',
+      'Track notice delivery and response status.',
+      'Escalate to legal proceedings with case file export.',
+    ],
+    access: [
+      'Treasurer — create notices and manage dues records.',
+      'Secretary — co-sign Section 101 notices.',
+      'Chairman — view defaulter summary dashboard.',
+    ],
+  },
+  payinslip: {
+    icon: '<iconify-icon icon="mdi:bank-outline" width="28"></iconify-icon>',
+    tag: 'Treasurer',
+    title: 'Pay-in Slip Generator',
+    desc: 'Automatically generate bank deposit slips from cheque receipt details — eliminating handwritten slips and reducing entry errors.',
+    steps: [
+      'Enter cheque number, amount, and depositor flat ID.',
+      'System maps to bank account and fills deposit slip fields.',
+      'Preview the formatted pay-in slip before printing.',
+      'Print or save PDF — matches standard bank slip format.',
+      'Auto-records the receipt in the accounting ledger.',
+    ],
+    access: [
+      'Treasurer — full access to generate and print slips.',
+      'Society Manager / Office Staff — input-only access.',
+    ],
+  },
+};
+
+const API_URL = window.location.origin + '/api';
+
+/* ─────────────────────────────────────────────
+   LOGIN & AUTH
+───────────────────────────────────────────── */
+let currentRole = '';
+
+const loginSection  = document.getElementById('adminLoginSection');
+const adminPanel    = document.getElementById('adminPanel');
+const loginForm     = document.getElementById('adminLoginForm');
+const loginError    = document.getElementById('loginError');
+const roleSelect    = document.getElementById('adminRole');
+const pinInput      = document.getElementById('adminPin');
+const pinToggle     = document.getElementById('pinToggle');
+const logoutBtn     = document.getElementById('adminLogoutBtn');
+const rolePill      = document.getElementById('rolePill');
+const rolePillLabel = document.getElementById('rolePillLabel');
+const adminTime     = document.getElementById('adminTime');
+const adminRoleBadge = document.getElementById('adminRoleBadge');
+const adminRoleLabel = document.getElementById('adminRoleLabel');
+const greetingRole  = document.getElementById('greetingRole');
+const greetingtime  = document.getElementById('greetingTime');
+
+const ROLE_LABELS = {
+  secretary: 'Secretary',
+  chairman:  'Chairman',
+  treasurer: 'Treasurer',
+  committee: 'All Committee',
+};
+
+pinToggle.addEventListener('click', () => {
+  const show = pinInput.type === 'password';
+  pinInput.type = show ? 'text' : 'password';
+  pinToggle.querySelector('i').className = show ? 'fa-regular fa-eye-slash' : 'fa-regular fa-eye';
+});
+
+// ── AUTO-HIDE ERROR ON INPUT ──
+roleSelect.addEventListener('change', () => loginError.hidden = true);
+pinInput.addEventListener('input', () => loginError.hidden = true);
+
+loginForm.addEventListener('submit', async e => {
+  e.preventDefault();
+  const role = roleSelect.value;
+  const pin  = pinInput.value.trim();
+  
+  if (!role || !pin) return;
+
+  const btn = document.getElementById('loginSubmitBtn');
+  const original = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Authenticating...';
+
+  try {
+    const res = await fetch(`${API_URL}/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ role, pin })
+    });
+    const result = await res.json();
+
+    if (result.success) {
+      localStorage.setItem('adminToken', result.token);
+      localStorage.setItem('adminRole', result.admin.role);
+      loginError.hidden = true;
+      enterAdmin(result.admin.role, true); // true = show animation
+    } else {
+      loginError.hidden = false;
+      pinInput.value = '';
+      pinInput.focus();
+    }
+  } catch (err) {
+    console.error(err);
+    alert('Backend connection error.');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = original;
+  }
+});
+
+function enterAdmin(role, animate = false) {
+  currentRole = role;
+  const label = ROLE_LABELS[role] || 'Committee';
+  
+  if (animate && typeof gsap !== 'undefined') {
+    const overlay = document.getElementById('adminAuthOverlay');
+    const tl = gsap.timeline();
+
+    // phase 1: dim and zoom-out the login card
+    tl.to('.admin-login__card', {
+      scale: 0.9,
+      opacity: 0,
+      filter: 'blur(10px)',
+      duration: 0.5,
+      ease: 'power2.in'
+    });
+
+    // phase 2: show the Authorising overlay
+    tl.to(overlay, {
+      opacity: 1,
+      pointerEvents: 'all',
+      duration: 0.4
+    }, '-=0.2');
+
+    tl.to('.unlock-beam', {
+      opacity: 1,
+      scale: 1.1,
+      duration: 0.8,
+      repeat: 1,
+      yoyo: true,
+      ease: 'sine.inOut'
+    });
+
+    // phase 3: zoom INTO the dashboard
+    tl.to(overlay, {
+      opacity: 0,
+      scale: 1.5,
+      filter: 'blur(20px)',
+      duration: 0.8,
+      ease: 'expo.in'
+    });
+
+    tl.set(loginSection, { display: 'none' });
+    tl.set(adminPanel, { 
+      display: 'block', 
+      hidden: false, 
+      opacity: 0, 
+      scale: 0.95,
+      filter: 'blur(15px)'
+    });
+
+    tl.to(adminPanel, {
+      opacity: 1,
+      scale: 1,
+      filter: 'blur(0px)',
+      duration: 1,
+      ease: 'expo.out',
+      onStart: () => {
+        setupAdminUI(label, role);
+      }
+    }, '-=0.3');
+
+    // card stagger
+    tl.from('.dash-card', {
+      y: 40,
+      opacity: 0,
+      stagger: 0.1,
+      duration: 1.2,
+      ease: 'elastic.out(1, 0.8)'
+    }, '-=0.5');
+
+  } else {
+    loginSection.hidden = true;
+    loginSection.style.display = 'none';
+    adminPanel.hidden = false;
+    adminPanel.style.display = 'block';
+    setupAdminUI(label, role);
+  }
+
+  if (greetingTime) {
+    const hour = new Date().getHours();
+    greetingTime.textContent = hour < 12 ? 'Morning' : hour < 17 ? 'Afternoon' : 'Evening';
+  }
+  setInterval(updateClock, 60000);
+}
+
+function setupAdminUI(label, role) {
+  logoutBtn.hidden = false;
+  adminRoleBadge.hidden = false;
+  adminRoleLabel.textContent = label;
+  rolePillLabel.textContent = label;
+  greetingRole.textContent = label;
+  updateClock();
+  applyRoleAccess(role);
+  fetchDashboard();
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
+
+async function fetchDashboard() {
+  try {
+    const res = await fetch(`${API_URL}/dashboard/stats`, {
+      headers: { 'Authorization': `Bearer ${localStorage.getItem('adminToken')}` }
+    });
+    const data = await res.json();
+    renderStats(data.stats);
+    renderQueries(data.latestQueries);
+    renderComplaints(data.latestComplaints);
+    renderDefaulters(data.defaulters);
+  } catch (err) {
+    console.error('Error fetching dashboard', err);
+  }
+}
+
+function renderStats(stats) {
+  const cards = document.querySelectorAll('.kpi-card');
+  if (cards.length < 4) return;
+  // Collections
+  cards[0].querySelector('.kpi-card__value').textContent = stats.pendingCollections;
+  cards[0].querySelector('.kpi-card__sub').innerHTML = `<i class="fa-solid fa-arrow-trend-up"></i> ${stats.pendingFlats} flats yet to pay`;
+  // Complaints
+  cards[1].querySelector('.kpi-card__value').textContent = stats.openComplaints;
+  cards[1].querySelector('.kpi-card__sub').innerHTML = `<i class="fa-solid fa-clock"></i> ${stats.overdueComplaints} overdue`;
+  // Queries
+  cards[2].querySelector('.kpi-card__value').textContent = stats.pendingQueries;
+  // Resolved
+  cards[3].querySelector('.kpi-card__value').textContent = stats.resolvedThisMonth;
+}
+
+function renderQueries(queries) {
+  const list = document.getElementById('dashboardQueries');
+  if (!list) return;
+  list.innerHTML = queries.length ? queries.map(q => `
+    <div class="query-row ${q.status === 'New' ? 'query-row--new' : ''}">
+      <div class="query-row__avatar" style="background:linear-gradient(135deg,#4F7FFF,#7C3AED)">${q.name.substring(0,2).toUpperCase()}</div>
+      <div class="query-row__body">
+        <strong>${q.name} — Flat ${q.flat || 'N/A'}</strong>
+        <p>${q.message}</p>
+        <time>${new Date(q.date).toLocaleString('en-IN', { hour:'2-digit', minute:'2-digit', day:'numeric', month:'short' })}</time>
+      </div>
+      <span class="query-tag query-tag--${q.status.toLowerCase()}">${q.status}</span>
+    </div>
+  `).join('') : '<p style="padding:var(--s4);color:var(--txt-3);text-align:center">No active queries</p>';
+}
+
+function renderComplaints(complaints) {
+  const list = document.querySelector('.complaints-list');
+  if (!list) return;
+  list.innerHTML = complaints.map(c => `
+    <div class="complaint-row">
+      <span class="comp-id">#${c.ticket_id}</span>
+      <div class="comp-body">
+        <strong>${c.category} issue — ${c.flat}</strong>
+        <span>Reported by ${c.resident} · ${new Date(c.date).toLocaleDateString('en-IN', { day:'numeric', month:'short' })}</span>
+      </div>
+      <span class="comp-status comp-status--${c.status.toLowerCase().replace(' ', '-')}">${c.status}</span>
+    </div>
+  `).join('');
+}
+
+function renderDefaulters(defaulters) {
+  const tbody = document.getElementById('dashboardDefaulters');
+  if (!tbody) return;
+  tbody.innerHTML = defaulters.length ? defaulters.map(d => `
+    <tr class="defaulter-row ${d.months_overdue >= 2 ? 'defaulter-row--critical' : ''}">
+      <td><span class="flat-tag">${d.flat}</span></td>
+      <td style="font-size:0.82rem;font-weight:600">${d.resident}</td>
+      <td class="due-amount">₹${d.amount_due.toLocaleString('en-IN')}</td>
+      <td><span class="overdue-badge overdue-badge--${d.months_overdue >= 2 ? 'high' : 'mid'}">${d.months_overdue}m</span></td>
+      <td>
+        <div style="display:flex;gap:8px">
+          <button class="act-btn-text act-btn-text--blue" title="Send Reminder">Remind</button>
+          <button class="act-btn-text act-btn-text--orange" title="Issue Warning">Issue Warning</button>
+        </div>
+      </td>
+    </tr>
+  `).join('') : '<tr><td colspan="5" style="text-align:center;padding:var(--s4);color:var(--green)">All accounts clear ✓</td></tr>';
+  initActionButtons();
+}
+
+function updateClock() {
+  const now = new Date();
+  adminTime.textContent = now.toLocaleString('en-IN', { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+}
+
+function applyRoleAccess(role) {
+  document.querySelectorAll('.admin-tool-card').forEach(card => {
+    const allowed = card.dataset.roles.split(',');
+    const accessible = allowed.includes(role);
+    card.classList.toggle('admin-tool-card--locked', !accessible);
+    if (!accessible) {
+      card.setAttribute('title', 'Not accessible for your role');
+    }
+  });
+}
+
+function initActionButtons() {
+  document.querySelectorAll('.act-btn--approve').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const row = btn.closest('.pending-item');
+      if (row) {
+        row.style.opacity = '0.4';
+        row.style.pointerEvents = 'none';
+        btn.closest('.pending-item__actions').innerHTML = '<span style="font-size:0.78rem;color:var(--green);font-weight:700"><i class="fa-solid fa-check-circle"></i> Approved</span>';
+      }
+    });
+  });
+  document.querySelectorAll('.act-btn--reject').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const row = btn.closest('.pending-item');
+      if (row) {
+        row.style.opacity = '0.4';
+        row.style.pointerEvents = 'none';
+        btn.closest('.pending-item__actions').innerHTML = '<span style="font-size:0.78rem;color:var(--red);font-weight:700"><i class="fa-solid fa-xmark-circle"></i> Rejected</span>';
+      }
+    });
+  });
+  document.querySelectorAll('.act-btn-text').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const original = btn.textContent;
+      const originalBg = btn.style.background;
+      const originalBorder = btn.style.borderColor;
+
+      btn.textContent = 'Sent ✓';
+      btn.style.background = 'var(--green)';
+      btn.style.color = '#fff';
+      btn.style.borderColor = 'var(--green)';
+      btn.disabled = true;
+
+      setTimeout(() => { 
+        btn.textContent = original; 
+        btn.style.background = originalBg;
+        btn.style.color = ''; 
+        btn.style.borderColor = originalBorder;
+        btn.disabled = false; 
+      }, 3000);
+    });
+  });
+}
+
+logoutBtn.addEventListener('click', () => {
+  localStorage.removeItem('adminToken');
+  localStorage.removeItem('adminRole');
+  adminPanel.hidden = true;
+  loginSection.hidden = false;
+  logoutBtn.hidden = true;
+  adminRoleBadge.hidden = true;
+  loginForm.reset();
+  currentRole = '';
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const token = localStorage.getItem('adminToken');
+  const role = localStorage.getItem('adminRole');
+  if (token && role) {
+    enterAdmin(role);
+  }
+});
+
+/* ─────────────────────────────────────────────
+   MODAL System
+───────────────────────────────────────────── */
+const modal        = document.getElementById('adminModal');
+const modalIcon    = document.getElementById('adminModalIcon');
+const modalTag     = document.getElementById('adminModalTag');
+const modalTitle   = document.getElementById('adminModalTitle');
+const modalDesc    = document.getElementById('adminModalDesc');
+const modalSteps   = document.getElementById('adminModalSteps');
+const modalBenList = document.getElementById('adminModalBenefitsList');
+const modalClose   = document.getElementById('adminModalClose');
+const modalBackdrop = document.getElementById('adminModalBackdrop');
+
+document.querySelectorAll('.admin-tool-card').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (btn.classList.contains('admin-tool-card--locked')) return;
+    const data = ADMIN_MODULES[btn.dataset.module];
+    if (!data) return;
+    modalIcon.innerHTML   = data.icon;
+    modalTag.textContent  = data.tag;
+    modalTitle.textContent = data.title;
+    modalDesc.textContent  = data.desc;
+    modalSteps.innerHTML   = data.steps.map(s => `<li>${s}</li>`).join('');
+    modalBenList.innerHTML = data.access.map(a => `<li>${a}</li>`).join('');
+    modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    modalClose.focus();
+  });
+});
+
+function closeModal() {
+  modal.hidden = true;
+  document.body.style.overflow = '';
+}
+
+modalClose.addEventListener('click', closeModal);
+modalBackdrop.addEventListener('click', closeModal);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+
+</body>
+</html>

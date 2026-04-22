@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Rishikesh Co-operative Housing Society — Sector-34, Kamothe, Mansarovar. Pay maintenance, view notices, raise complaints and access all society services online." />
+  <title>Rishikesh CHS — Sector-34, Kamothe, Mansarovar</title>
+
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js" defer></script>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/ScrollTrigger.min.js"></script>
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     NAVBAR
+══════════════════════════════════════ -->
+<header class="nav" id="nav" role="banner">
+  <div class="nav__inner">
+
+    <a href="#hero" class="nav__logo" aria-label="Rishikesh CHS home">
+      <span class="nav__logo-mark">R</span>
+      <div class="nav__logo-text-wrap">
+        <span class="nav__logo-name">Rishikesh <em>CHS</em></span>
+        <span class="nav__logo-sub">Kamothe, Mansarovar</span>
+      </div>
+    </a>
+
+    <nav class="nav__links" id="navLinks" role="navigation" aria-label="Primary navigation">
+      <a href="#quick-access" class="nav__link">Services</a>
+      <a href="#announcements" class="nav__link">Notices</a>
+      <a href="#committee" class="nav__link">Committee</a>
+      <a href="#about-society" class="nav__link">About Society</a>
+      <a href="#contact" class="nav__link">Contact</a>
+    </nav>
+
+    <div class="nav__actions">
+      <a href="#quick-access" class="btn btn--ghost nav__pay-btn">
+        <i class="fa-solid fa-rupee-sign"></i> Pay Bills
+      </a>
+      <a href="#login" class="btn btn--primary nav__login-btn">
+        <i class="fa-solid fa-right-to-bracket"></i> Member Login
+      </a>
+      <a href="admin.html" class="btn btn--ghost nav__pay-btn" style="border-color:rgba(245,158,11,0.4);color:var(--amber)">
+        <i class="fa-solid fa-lock"></i> Admin
+      </a>
+    </div>
+
+    <button class="nav__burger" id="navBurger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+  </div>
+
+  <div class="nav__drawer" id="navDrawer" aria-hidden="true">
+    <a href="#quick-access"   class="nav__drawer-link">Services &amp; Payments</a>
+    <a href="#announcements"  class="nav__drawer-link">Notices &amp; Announcements</a>
+    <a href="#committee"      class="nav__drawer-link">Managing Committee</a>
+    <a href="#about-society"  class="nav__drawer-link">About Our Society</a>
+    <a href="#contact"        class="nav__drawer-link">Contact &amp; Office Hours</a>
+    <a href="admin.html"      class="nav__drawer-link" style="color:var(--amber)"><i class="fa-solid fa-lock" style="margin-right:8px"></i>Committee Admin Panel</a>
+    <div class="nav__drawer-actions">
+      <a href="#quick-access" class="btn btn--ghost">Pay Bills</a>
+      <a href="#login"        class="btn btn--primary">Member Login</a>
+    </div>
+  </div>
+</header>
+
+
+<main id="main">
+
+<!-- ══════════════════════════════════════
+     HERO
+══════════════════════════════════════ -->
+<section class="hero" id="hero" aria-labelledby="hero-h1">
+
+  <!-- Full-bleed building photo as backdrop -->
+  <div class="hero__bg-photo" aria-hidden="true">
+    <img
+      src="img/building-hero-cinematic.png"
+      alt="Rishikesh CHS building"
+      class="hero__bg-img"
+      loading="eager"
+    />
+    <!-- directional overlays: heavy left for text → transparent right → building visible -->
+    <div class="hero__bg-vignette"></div>
+  </div>
+
+  <!-- Right side — dark portrait of building (layered for depth) -->
+  <div class="hero__side-photo" aria-hidden="true">
+    <img
+      src="img/building-side-dark.png"
+      alt="Rishikesh CHS building facade"
+      class="hero__side-img"
+      loading="eager"
+    />
+    <div class="hero__side-fade"></div>
+  </div>
+
+  <!-- ambient glow -->
+  <div class="hero__ambient" aria-hidden="true"></div>
+
+  <!-- Text content -->
+  <div class="hero__body">
+    <p class="hero__welcome-tag">
+      <i class="fa-solid fa-house"></i> Welcome Home
+    </p>
+    <h1 class="hero__h1" id="hero-h1">
+      Rishikesh<br /><em>Co-operative<br />Housing Society</em>
+    </h1>
+    <p class="hero__address">
+      <i class="fa-solid fa-location-dot"></i>
+      Sector-34, Kamothe, Mansarovar, Navi Mumbai
+    </p>
+    <p class="hero__sub">
+      Your society. Online. Pay maintenance, view notices, raise complaints, and access all services — from your phone or laptop, anytime.
+    </p>
+    <div class="hero__actions">
+      <a href="#quick-access" class="btn btn--primary btn--lg">
+        <i class="fa-solid fa-grid-2"></i> Go to My Services
+      </a>
+      <a href="#login" class="btn btn--ghost btn--lg">
+        <i class="fa-solid fa-right-to-bracket"></i> Member Login
+      </a>
+    </div>
+  </div>
+
+  <!-- Stats bar -->
+  <div class="hero__stats">
+    <div class="hero__stat">
+      <strong>4</strong>
+      <span>Wings (A, B, C, D)</span>
+    </div>
+    <div class="hero__stat-divider" aria-hidden="true"></div>
+    <div class="hero__stat">
+      <strong>120</strong>
+      <span>Residential Flats</span>
+    </div>
+    <div class="hero__stat-divider" aria-hidden="true"></div>
+    <div class="hero__stat">
+      <strong>Est. 1998</strong>
+      <span>Registered Society</span>
+    </div>
+    <div class="hero__stat-divider" aria-hidden="true"></div>
+    <div class="hero__stat">
+      <strong>MCS Act</strong>
+      <span>1960 Compliant</span>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ══════════════════════════════════════
+     QUICK ACCESS — RESIDENT ACTIONS
+══════════════════════════════════════ -->
+<section class="quick-access" id="quick-access" aria-labelledby="qa-h2">
+  <div class="container">
+    <div class="qa__header">
+      <p class="label">Resident Services</p>
+      <h2 class="qa__h2" id="qa-h2">What do you need today?</h2>
+      <p class="qa__sub">The most-used services — available in one click. No phone calls. No office visits.</p>
+    </div>
+
+    <div class="qa__grid">
+
+      <button class="qa__card qa__card--pay" data-module="billing" aria-label="Pay my maintenance bill">
+        <div class="qa__card-icon">
+          <i class="fa-solid fa-credit-card"></i>
+        </div>
+        <h3>Pay Maintenance</h3>
+        <p>Pay your monthly or quarterly maintenance dues securely online via UPI, net banking, or card.</p>
+        <span class="qa__card-action">Pay Now <i class="fa-solid fa-arrow-right"></i></span>
+      </button>
+
+      <button class="qa__card qa__card--notice" data-module="notices" aria-label="View society notices">
+        <div class="qa__card-icon">
+          <i class="fa-solid fa-bell"></i>
+        </div>
+        <h3>Notices &amp; Circulars</h3>
+        <p>View all society notices, AGM announcements, circulars, and important updates from the committee.</p>
+        <span class="qa__card-action">View Notices <i class="fa-solid fa-arrow-right"></i></span>
+      </button>
+
+      <button class="qa__card qa__card--complaint" data-module="complaints" aria-label="Raise a complaint">
+        <div class="qa__card-icon">
+          <i class="fa-solid fa-wrench"></i>
+        </div>
+        <h3>Raise a Complaint</h3>
+        <p>Report maintenance issues, security concerns or any problem and track its resolution status.</p>
+        <span class="qa__card-action">File Complaint <i class="fa-solid fa-arrow-right"></i></span>
+      </button>
+
+      <button class="qa__card qa__card--docs" data-module="noc" aria-label="Request documents">
+        <div class="qa__card-icon">
+          <i class="fa-solid fa-file-lines"></i>
+        </div>
+        <h3>Request Documents</h3>
+        <p>Apply for NOC letters (passport, bank loan, meter transfer), share certificates, and other society documents.</p>
+        <span class="qa__card-action">Request Now <i class="fa-solid fa-arrow-right"></i></span>
+      </button>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     ANNOUNCEMENTS / NOTICES
+══════════════════════════════════════ -->
+<section class="announcements" id="announcements" aria-labelledby="ann-h2">
+  <div class="container">
+    <div class="announcements__header">
+      <div>
+        <p class="label">Latest Updates</p>
+        <h2 id="ann-h2" class="announcements__h2">Notices &amp; Announcements</h2>
+      </div>
+      <a href="#login" class="btn btn--ghost">View All <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+
+    <div class="notices__grid">
+
+      <article class="notice-card notice-card--urgent" aria-label="Urgent notice">
+        <div class="notice-card__meta">
+          <span class="notice-badge notice-badge--urgent">
+            <i class="fa-solid fa-circle-exclamation"></i> Urgent
+          </span>
+          <time datetime="2025-04-18">18 Apr 2025</time>
+        </div>
+        <h3>April Maintenance Due — Last Date: 30 April</h3>
+        <p>All residents are requested to clear their April 2025 maintenance dues by 30th April to avoid late fees. Pay online through the member portal.</p>
+        <a href="#login" class="notice-card__link">Pay Now <i class="fa-solid fa-arrow-right"></i></a>
+      </article>
+
+      <article class="notice-card" aria-label="AGM notice">
+        <div class="notice-card__meta">
+          <span class="notice-badge notice-badge--agm">
+            <i class="fa-solid fa-users"></i> AGM
+          </span>
+          <time datetime="2025-04-10">10 Apr 2025</time>
+        </div>
+        <h3>Annual General Meeting — 5th May 2025</h3>
+        <p>The 27th Annual General Meeting of Rishikesh CHS will be held on 5th May 2025 at 7:00 PM in the Society Hall. Agenda has been circulated.</p>
+        <a href="#login" class="notice-card__link">View Agenda <i class="fa-solid fa-arrow-right"></i></a>
+      </article>
+
+      <article class="notice-card" aria-label="Maintenance circular">
+        <div class="notice-card__meta">
+          <span class="notice-badge notice-badge--info">
+            <i class="fa-solid fa-info-circle"></i> Circular
+          </span>
+          <time datetime="2025-04-05">5 Apr 2025</time>
+        </div>
+        <h3>Water Supply Interruption — Wing A &amp; B</h3>
+        <p>Water supply will be interrupted on 22nd April (Sunday) from 9 AM to 3 PM due to overhead tank cleaning. Please store water accordingly.</p>
+        <a href="#login" class="notice-card__link">Read More <i class="fa-solid fa-arrow-right"></i></a>
+      </article>
+
+      <article class="notice-card" aria-label="Parking circular">
+        <div class="notice-card__meta">
+          <span class="notice-badge notice-badge--info">
+            <i class="fa-solid fa-info-circle"></i> Circular
+          </span>
+          <time datetime="2025-03-30">30 Mar 2025</time>
+        </div>
+        <h3>Updated Parking Rules — Effective 1st May 2025</h3>
+        <p>The Managing Committee has revised visitor parking rules. Visitors must register at the security desk. Unregistered vehicles will be towed from 1st May.</p>
+        <a href="#login" class="notice-card__link">Read Rules <i class="fa-solid fa-arrow-right"></i></a>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     TICKER
+══════════════════════════════════════ -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track">
+    <span>Pay Maintenance Online</span><span class="ticker__dot"></span>
+    <span>View Society Notices</span><span class="ticker__dot"></span>
+    <span>Raise Complaints</span><span class="ticker__dot"></span>
+    <span>AGM: 5th May 2025 at 7 PM</span><span class="ticker__dot"></span>
+    <span>Request NOC Letters</span><span class="ticker__dot"></span>
+    <span>Track Parking Slots</span><span class="ticker__dot"></span>
+    <span>Download Payment Receipts</span><span class="ticker__dot"></span>
+    <span>April Due Date: 30 Apr</span><span class="ticker__dot"></span>
+    <span>Pay Maintenance Online</span><span class="ticker__dot"></span>
+    <span>View Society Notices</span><span class="ticker__dot"></span>
+    <span>Raise Complaints</span><span class="ticker__dot"></span>
+    <span>AGM: 5th May 2025 at 7 PM</span><span class="ticker__dot"></span>
+    <span>Request NOC Letters</span><span class="ticker__dot"></span>
+    <span>Track Parking Slots</span><span class="ticker__dot"></span>
+    <span>Download Payment Receipts</span><span class="ticker__dot"></span>
+    <span>April Due Date: 30 Apr</span><span class="ticker__dot"></span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     FOR RESIDENTS — services overview
+══════════════════════════════════════ -->
+<section class="residents-section" id="residents" aria-labelledby="res-h2">
+  <div class="container">
+    <div class="residents__header">
+      <p class="label">For Residents</p>
+      <h2 id="res-h2" class="residents__h2">Everything a resident needs — in one place.</h2>
+      <p>No more visiting the secretary's office for routine tasks. Everything below is available on your phone, 24×7, through the member portal.</p>
+    </div>
+
+    <div class="services-two-col">
+
+      <div class="services-col">
+        <h3 class="services-col__title">
+          <i class="fa-solid fa-user"></i> Day-to-Day Services
+        </h3>
+        <div class="services-list">
+          <button class="svc-row" data-module="billing">
+            <div class="svc-row__icon"><iconify-icon icon="mdi:receipt-text-send" width="20"></iconify-icon></div>
+            <div class="svc-row__text">
+              <strong>Pay &amp; View Maintenance Bills</strong>
+              <span>Pay dues online, download PDF receipts, view payment history</span>
+            </div>
+            <i class="fa-solid fa-chevron-right svc-row__arrow" aria-hidden="true"></i>
+          </button>
+          <button class="svc-row" data-module="notices">
+            <div class="svc-row__icon"><iconify-icon icon="mdi:bullhorn-variant" width="20"></iconify-icon></div>
+            <div class="svc-row__text">
+              <strong>Society Notices &amp; Circulars</strong>
+              <span>Access all notices including AGM, maintenance, security, events</span>
+            </div>
+            <i class="fa-solid fa-chevron-right svc-row__arrow" aria-hidden="true"></i>
+          </button>
+          <button class="svc-row" data-module="complaints">
+            <div class="svc-row__icon"><iconify-icon icon="mdi:ticket-account" width="20"></iconify-icon></div>
+            <div class="svc-row__text">
+              <strong>Lodge &amp; Track Complaints</strong>
+              <span>Report issues and track resolution in real time</span>
+            </div>
+            <i class="fa-solid fa-chevron-right svc-row__arrow" aria-hidden="true"></i>
+          </button>
+          <button class="svc-row" data-module="parking">
+            <div class="svc-row__icon"><iconify-icon icon="mdi:car-multiple" width="20"></iconify-icon></div>
+            <div class="svc-row__text">
+              <strong>Parking Slot Information</strong>
+              <span>View your allocated slot, raise parking queries</span>
+            </div>
+            <i class="fa-solid fa-chevron-right svc-row__arrow" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="services-col">
+        <h3 class="services-col__title">
+          <i class="fa-solid fa-file-lines"></i> Documents &amp; Records
+        </h3>
+        <div class="services-list">
+          <button class="svc-row" data-module="noc">
+            <div class="svc-row__icon"><iconify-icon icon="mdi:file-certificate" width="20"></iconify-icon></div>
+            <div class="svc-row__text">
+              <strong>NOC &amp; Letter Requests</strong>
+              <span>Passport NOC, bank loan NOC, meter transfer — apply online</span>
+            </div>
+            <i class="fa-solid fa-chevron-right svc-row__arrow" aria-hidden="true"></i>
+          </button>
+          <button class="svc-row" data-module="meetings">
+            <div class="svc-row__icon"><iconify-icon icon="mdi:clipboard-list-outline" width="20"></iconify-icon></div>
+            <div class="svc-row__text">
+              <strong>Meeting Minutes &amp; AGM Records</strong>
+              <span>Read published minutes, submit member feedback</span>
+            </div>
+            <i class="fa-solid fa-chevron-right svc-row__arrow" aria-hidden="true"></i>
+          </button>
+          <button class="svc-row" data-module="tenant">
+            <div class="svc-row__icon"><iconify-icon icon="mdi:account-key" width="20"></iconify-icon></div>
+            <div class="svc-row__text">
+              <strong>Tenant Registration</strong>
+              <span>Owners can register tenants and manage lease details</span>
+            </div>
+            <i class="fa-solid fa-chevron-right svc-row__arrow" aria-hidden="true"></i>
+          </button>
+          <button class="svc-row" data-module="statutory">
+            <div class="svc-row__icon"><iconify-icon icon="mdi:text-box-multiple" width="20"></iconify-icon></div>
+            <div class="svc-row__text">
+              <strong>Society Documents</strong>
+              <span>Bye-laws, Form-I, Form-J, Share Certificate records</span>
+            </div>
+            <i class="fa-solid fa-chevron-right svc-row__arrow" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Committee tools moved to admin.html -->
+
+
+<!-- ══════════════════════════════════════
+     MANAGING COMMITTEE
+══════════════════════════════════════ -->
+<section class="committee" id="committee" aria-labelledby="com-h2">
+  <div class="container">
+    <div class="section-header-flex">
+      <div>
+        <p class="label">2024–2025 Term</p>
+        <h2 id="com-h2" class="committee__h2">Your Managing Committee</h2>
+      </div>
+      <p class="committee__desc">For official matters, please contact via the society office or through the member portal. Office hours: Mon–Sat, 7–9 PM.</p>
+    </div>
+
+    <div class="committee__grid">
+
+      <article class="cm-card" aria-label="Secretary">
+        <div class="cm-card__avatar cm-card__avatar--b">AT</div>
+        <div class="cm-card__info">
+          <span class="cm-card__role">Secretary</span>
+          <strong class="cm-card__name">Arvind Turalkar</strong>
+          <a href="tel:+919800000002" class="cm-card__phone">
+            <i class="fa-solid fa-phone"></i> +91 98000 00002
+          </a>
+        </div>
+      </article>
+
+      <article class="cm-card" aria-label="Chairman">
+        <div class="cm-card__avatar cm-card__avatar--a">SM</div>
+        <div class="cm-card__info">
+          <span class="cm-card__role">Chairman</span>
+          <strong class="cm-card__name">Sachin Misal</strong>
+          <a href="tel:+919800000001" class="cm-card__phone">
+            <i class="fa-solid fa-phone"></i> +91 98000 00001
+          </a>
+        </div>
+      </article>
+
+      <article class="cm-card" aria-label="Treasurer">
+        <div class="cm-card__avatar cm-card__avatar--c">NK</div>
+        <div class="cm-card__info">
+          <span class="cm-card__role">Treasurer</span>
+          <strong class="cm-card__name">Nitin Kadam</strong>
+          <a href="tel:+919800000003" class="cm-card__phone">
+            <i class="fa-solid fa-phone"></i> +91 98000 00003
+          </a>
+        </div>
+      </article>
+
+      <article class="cm-card" aria-label="Society Manager">
+        <div class="cm-card__avatar cm-card__avatar--d">MG</div>
+        <div class="cm-card__info">
+          <span class="cm-card__role">Society Manager</span>
+          <strong class="cm-card__name">Society Office</strong>
+          <a href="tel:+919800000004" class="cm-card__phone">
+            <i class="fa-solid fa-phone"></i> +91 98000 00004
+          </a>
+        </div>
+      </article>
+
+      <!-- Security Contacts Widget -->
+      <div class="cm-cta-card security-widget">
+        <div class="security-widget__top">
+          <i class="fa-solid fa-shield-halved security-icon"></i>
+          <h3>Security on Duty</h3>
+        </div>
+        <div class="security-select-wrap">
+          <label for="securitySelect" class="sr-only">Choose security person</label>
+          <select id="securitySelect" class="security-select">
+            <option value="">— Select Guard on Duty —</option>
+            <option value="tel:+919800000010">Ramesh Pawar · Main Gate (Day)</option>
+            <option value="tel:+919800000011">Sunil Kamble · Main Gate (Night)</option>
+            <option value="tel:+919800000012">Ganesh Shinde · Back Gate (Day)</option>
+            <option value="tel:+919800000013">Mohan Yadav · Back Gate (Night)</option>
+            <option value="tel:+919800000014">Raju Gupta · Roving Guard</option>
+          </select>
+          <a href="#" id="securityCallBtn" class="btn btn--primary security-call-btn" aria-disabled="true">
+            <i class="fa-solid fa-phone"></i> Call Now
+          </a>
+        </div>
+        <a href="mailto:office@rishikeshchs.in" class="btn btn--ghost security-email-btn">
+          <i class="fa-solid fa-envelope"></i> Email Office
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     ABOUT THE SOCIETY
+══════════════════════════════════════ -->
+<section class="about-society" id="about-society" aria-labelledby="as-h2">
+  <div class="container">
+    <div class="about-society__grid">
+
+      <div class="about-society__img-col">
+        <img
+          src="img/building-about-styled.png"
+          alt="Rishikesh CHS inner courtyard with palm tree"
+          loading="lazy"
+          class="about-society__img"
+        />
+        <div class="about-society__img-badge">
+          <i class="fa-solid fa-award"></i>
+          <div>
+            <strong>Registered 1998</strong>
+            <span>Under MCS Act 1960</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-society__text">
+        <p class="label">About Our Society</p>
+        <h2 id="as-h2" class="about-society__h2">
+          Home to 120 families.<br /><em>A community since 1998.</em>
+        </h2>
+        <p class="about-society__lead">
+          Rishikesh Co-operative Housing Society is a thriving residential community in Sector-34, Kamothe, Mansarovar, Navi Mumbai. Four wings, 120 flats, and a legacy of transparent, resident-first management.
+        </p>
+        <p class="about-society__body">
+          Our society is registered under the Maharashtra Co-operative Societies Act 1960 and governed by a democratically elected Managing Committee. From AMC contractors to water supply, parking to security — every decision is made collectively and transparently.
+        </p>
+
+        <div class="society-info-grid">
+          <div class="sinfo-item">
+            <iconify-icon icon="mdi:home-city" width="22"></iconify-icon>
+            <div>
+              <strong>4 Wings</strong>
+              <span>Wing A, B, C, D</span>
+            </div>
+          </div>
+          <div class="sinfo-item">
+            <iconify-icon icon="mdi:door" width="22"></iconify-icon>
+            <div>
+              <strong>120 Flats</strong>
+              <span>1 BHK, 2 BHK &amp; 3 BHK</span>
+            </div>
+          </div>
+          <div class="sinfo-item">
+            <iconify-icon icon="mdi:car-multiple" width="22"></iconify-icon>
+            <div>
+              <strong>Covered + Open</strong>
+              <span>Parking available</span>
+            </div>
+          </div>
+          <div class="sinfo-item">
+            <iconify-icon icon="mdi:shield-check" width="22"></iconify-icon>
+            <div>
+              <strong>24×7</strong>
+              <span>Security &amp; CCTV</span>
+            </div>
+          </div>
+          <div class="sinfo-item">
+            <iconify-icon icon="mdi:water-pump" width="22"></iconify-icon>
+            <div>
+              <strong>BWSSB + Borewell</strong>
+              <span>Dual water supply</span>
+            </div>
+          </div>
+          <div class="sinfo-item">
+            <iconify-icon icon="mdi:elevator" width="22"></iconify-icon>
+            <div>
+              <strong>4 Lifts</strong>
+              <span>AMC maintained</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     SOCIETY GLIMPSES — Photo Ribbon
+══════════════════════════════════════ -->
+<section class="glimpses" id="glimpses" aria-labelledby="glimpses-h2">
+  <div class="container">
+    <div class="glimpses__header">
+      <p class="label">Life at Rishikesh CHS</p>
+      <h2 id="glimpses-h2" class="glimpses__h2">Society Glimpses</h2>
+      <p class="glimpses__sub">Moments from our community — celebrations, safety drills, festivals, and everyday life.</p>
+    </div>
+  </div>
+
+  <!-- Row 1 — scrolls left -->
+  <div class="glimpses__ribbon glimpses__ribbon--ltr" aria-hidden="true">
+    <div class="glimpses__track">
+      <!-- real society photos -->
+      <figure class="glimpse-card">
+        <img src="img/building-front.jpg" alt="Rishikesh CHS building exterior" loading="lazy" />
+        <figcaption>Our Building</figcaption>
+      </figure>
+      <figure class="glimpse-card">
+        <img src="img/event-festival.jpg" alt="Festival celebration at Rishikesh CHS" loading="lazy" />
+        <figcaption>Festival Night</figcaption>
+      </figure>
+      <figure class="glimpse-card">
+        <img src="img/event-ganpati-procession.jpg" alt="Ganesh Chaturthi Procession at Rishikesh CHS" loading="lazy" />
+        <figcaption>Ganesh Chaturthi Procession</figcaption>
+      </figure>
+      <figure class="glimpse-card">
+        <img src="img/building-courtyard.jpg" alt="Rishikesh CHS inner courtyard" loading="lazy" />
+        <figcaption>Inner Compound</figcaption>
+      </figure>
+      <figure class="glimpse-card">
+        <img src="img/event-drill.jpg" alt="Fire safety drill at Rishikesh CHS" loading="lazy" />
+        <figcaption>Fire Safety Drill</figcaption>
+      </figure>
+      <figure class="glimpse-card">
+        <img src="img/building-street.jpg" alt="Rishikesh CHS street view" loading="lazy" />
+        <figcaption>Street View</figcaption>
+      </figure>
+      <figure class="glimpse-card">
+        <img src="img/event-independence-day.png" alt="Independence Day celebration" loading="lazy" />
+        <figcaption>Independence Day</figcaption>
+      </figure>
+      <figure class="glimpse-card">
+        <img src="img/event-flag-hoisting.jpg" alt="Flag hoisting ceremony" loading="lazy" />
+        <figcaption>Flag Hoisting</figcaption>
+      </figure>
+      <figure class="glimpse-card">
+        <img src="img/event-fancy-dress.jpg" alt="Fancy Dress Celebration" loading="lazy" />
+        <figcaption>Fancy Dress Celebration</figcaption>
+      </figure>
+      <!-- duplicate set for seamless loop -->
+      <figure class="glimpse-card">
+        <img src="img/building-front.jpg" alt="Rishikesh CHS" loading="lazy" />
+        <figcaption>Our Building</figcaption>
+      </figure>
+      <figure class="glimpse-card">
+        <img src="img/event-festival.jpg" alt="Festival" loading="lazy" />
+        <figcaption>Festival Night</figcaption>
+      </figure>
+      <figure class="glimpse-card">
+        <img src="img/event-ganpati-procession.jpg" alt="Ganpati" loading="lazy" />
+        <figcaption>Ganpati Procession</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <!-- Row 2 — scrolls right (slower) -->
+  <div class="glimpses__ribbon glimpses__ribbon--rtl" aria-hidden="true">
+    <div class="glimpses__track glimpses__track--rtl">
+      <figure class="glimpse-card">
+        <img src="img/event-fancy-dress.jpg" alt="Fancy Dress Celebration at Rishikesh CHS" loading="lazy" />
+        <figcaption>Fancy Dress Celebration</figcaption>
+      </figure>
+      <figure class="glimpse-card">
+        <img src="img/building-courtyard.jpg" alt="Rishikesh CHS courtyard" loading="lazy" />
+        <figcaption>Inner Compound</figcaption>
+      </figure>
+      <figure class="glimpse-card">
+        <img src="img/event-ganpati-procession.jpg" alt="Ganesh Chaturthi Procession at Rishikesh CHS" loading="lazy" />
+        <figcaption>Ganesh Chaturthi Procession</figcaption>
+      </figure>
+      <figure class="glimpse-card">
+        <img src="img/event-flag-hoisting.jpg" alt="Flag hoisting ceremony" loading="lazy" />
+        <figcaption>Flag Hoisting</figcaption>
+      </figure>
+      <figure class="glimpse-card">
+        <img src="img/event-independence-day.png" alt="Independence Day celebration" loading="lazy" />
+        <figcaption>Independence Day</figcaption>
+      </figure>
+      <figure class="glimpse-card">
+        <img src="img/building-street.jpg" alt="Street view" loading="lazy" />
+        <figcaption>Street View</figcaption>
+      </figure>
+      <!-- duplicate -->
+      <figure class="glimpse-card">
+        <img src="img/event-fancy-dress.jpg" alt="Fancy Dress Celebration at Rishikesh CHS" loading="lazy" />
+        <figcaption>Fancy Dress Celebration</figcaption>
+      </figure>
+      <figure class="glimpse-card">
+        <img src="img/building-courtyard.jpg" alt="Rishikesh CHS courtyard" loading="lazy" />
+        <figcaption>Inner Compound</figcaption>
+      </figure>
+      <figure class="glimpse-card">
+        <img src="img/event-ganpati-procession.jpg" alt="Ganesh Chaturthi Procession at Rishikesh CHS" loading="lazy" />
+        <figcaption>Ganesh Chaturthi Procession</figcaption>
+      </figure>
+      <!-- duplicate -->
+      <figure class="glimpse-card">
+        <img src="img/event-flag-hoisting.jpg" alt="Flag hoisting ceremony" loading="lazy" />
+        <figcaption>Flag Hoisting</figcaption>
+      </figure>
+      <figure class="glimpse-card">
+        <img src="img/event-independence-day.png" alt="Independence Day celebration" loading="lazy" />
+        <figcaption>Independence Day</figcaption>
+      </figure>
+      <figure class="glimpse-card">
+        <img src="img/building-street.jpg" alt="Street view" loading="lazy" />
+        <figcaption>Street View</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     FAQ
+══════════════════════════════════════ -->
+<section class="faq" id="faq" aria-labelledby="faq-h2">
+  <div class="container">
+    <div class="faq__left">
+      <p class="label">FAQ</p>
+      <h2 class="faq__h2" id="faq-h2">Common questions from our residents.</h2>
+      <p class="faq__sub">Still need help? <a href="mailto:office@rishikeshchs.in">Email the office</a> or contact the secretary.</p>
+    </div>
+    <div class="faq__list" role="list">
+
+      <div class="faq__item" role="listitem">
+        <button class="faq__q" aria-expanded="false" aria-controls="faq1">
+          How do I pay my maintenance bill online?
+          <i class="fa-solid fa-plus faq__icon" aria-hidden="true"></i>
+        </button>
+        <div class="faq__a" id="faq1">
+          <p>Log in to the member portal using your flat number and registered mobile number. Go to <strong>Pay Maintenance</strong>, select the billing period, and pay using UPI, net banking, or debit/credit card. Your receipt is automatically generated and emailed to you.</p>
+        </div>
+      </div>
+
+      <div class="faq__item" role="listitem">
+        <button class="faq__q" aria-expanded="false" aria-controls="faq2">
+          How do I get an NOC from the society for my passport or bank loan?
+          <i class="fa-solid fa-plus faq__icon" aria-hidden="true"></i>
+        </button>
+        <div class="faq__a" id="faq2">
+          <p>Log in to the member portal, go to <strong>Document Requests → NOC Request</strong>, select the type (passport, bank loan, meter transfer), and submit. The secretary will review and approve your request. The formatted NOC letter will be available for download in your portal within 2 working days.</p>
+        </div>
+      </div>
+
+      <div class="faq__item" role="listitem">
+        <button class="faq__q" aria-expanded="false" aria-controls="faq3">
+          How do I register a complaint about maintenance or security?
+          <i class="fa-solid fa-plus faq__icon" aria-hidden="true"></i>
+        </button>
+        <div class="faq__a" id="faq3">
+          <p>Go to <strong>Raise a Complaint</strong> in your member portal. Select the category (Plumbing, Electrical, Lift, Security, Housekeeping, etc.), describe the issue, and submit. You'll receive a complaint number and can track the status in real time. Urgent issues can also be reported directly to the secretary.</p>
+        </div>
+      </div>
+
+      <div class="faq__item" role="listitem">
+        <button class="faq__q" aria-expanded="false" aria-controls="faq4">
+          I want to give my flat on rent. Do I need to register the tenant?
+          <i class="fa-solid fa-plus faq__icon" aria-hidden="true"></i>
+        </button>
+        <div class="faq__a" id="faq4">
+          <p>Yes — society bye-laws require tenant registration. Log in as an owner, go to <strong>Tenant Management</strong>, and add your tenant's details (name, ID proof, contact, police verification status, lease start and end date). The committee will be notified and the tenant information will be recorded in the society register.</p>
+        </div>
+      </div>
+
+      <div class="faq__item" role="listitem">
+        <button class="faq__q" aria-expanded="false" aria-controls="faq5">
+          When is the Annual General Meeting (AGM) and how do I view the agenda?
+          <i class="fa-solid fa-plus faq__icon" aria-hidden="true"></i>
+        </button>
+        <div class="faq__a" id="faq5">
+          <p>The AGM for the current year is scheduled on <strong>5th May 2025 at 7:00 PM</strong> in the Society Hall. The official notice and agenda have been circulated. Log in to the member portal and go to <strong>Notices → AGM 2025</strong> to view the full agenda. All members are requested to attend.</p>
+        </div>
+      </div>
+
+      <div class="faq__item" role="listitem">
+        <button class="faq__q" aria-expanded="false" aria-controls="faq6">
+          What happens if I miss paying maintenance? Is there a late fee?
+          <i class="fa-solid fa-plus faq__icon" aria-hidden="true"></i>
+        </button>
+        <div class="faq__a" id="faq6">
+          <p>A late fee of ₹50 per month is applicable after the due date as per society bye-laws. After 3 months of default, the committee is authorized to issue a formal reminder. Continued default leads to a Section 101 Notice under MCS Act 1960. Please clear dues on time to avoid action.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     MEMBER LOGIN CTA
+══════════════════════════════════════ -->
+<section class="login-cta" id="login" aria-labelledby="login-h2">
+  <div class="login-cta__bg" aria-hidden="true"></div>
+  <div class="container login-cta__inner">
+    <div class="login-cta__text">
+      <p class="label">Member Portal</p>
+      <h2 class="login-cta__h2" id="login-h2">Access your society services online.</h2>
+      <p>Pay bills, view notices, track complaints, download receipts — all in one secure place. Available on any device, any time.</p>
+      <ul class="login-cta__list">
+        <li><i class="fa-solid fa-check"></i> Secure login with your flat number + OTP</li>
+        <li><i class="fa-solid fa-check"></i> Works on mobile, tablet and desktop</li>
+        <li><i class="fa-solid fa-check"></i> All payment receipts stored digitally</li>
+        <li><i class="fa-solid fa-check"></i> Real-time notifications for new notices</li>
+      </ul>
+      <div class="login-cta__actions">
+        <a href="https://app.rishikeshchs.in" class="btn btn--primary btn--lg">
+          <i class="fa-solid fa-right-to-bracket"></i> Login to Member Portal
+        </a>
+        <a href="mailto:office@rishikeshchs.in?subject=New Member Registration" class="btn btn--ghost btn--lg">
+          <i class="fa-solid fa-user-plus"></i> New Member? Register
+        </a>
+      </div>
+    </div>
+    <div class="login-cta__card">
+      <div class="login-card glass">
+        <div class="login-card__header">
+          <span class="nav__logo-mark" style="width:32px;height:32px;font-size:0.9rem">R</span>
+          <span style="font-weight:600;font-size:0.95rem">Rishikesh CHS Portal</span>
+        </div>
+        <div class="login-card__field">
+          <label>Flat Number</label>
+          <div class="login-card__input">A-101</div>
+        </div>
+        <div class="login-card__field">
+          <label>Security OTP</label>
+          <div class="login-card__input login-card__input--otp">
+            <span>●</span><span>●</span><span>●</span><span>●</span><span>●</span><span>●</span>
+          </div>
+        </div>
+        <div class="login-card__btn">Login Securely <i class="fa-solid fa-arrow-right"></i></div>
+        <p class="login-card__note"><i class="fa-solid fa-lock"></i> OTP sent to your registered mobile number</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     CONTACT
+══════════════════════════════════════ -->
+<section class="contact" id="contact" aria-labelledby="contact-h2">
+  <div class="container">
+    <div class="contact__header">
+      <p class="label">Get in Touch</p>
+      <h2 id="contact-h2" class="contact__h2">Society Office &amp; Contact</h2>
+    </div>
+
+    <div class="contact__grid">
+
+      <div class="contact-info-card glass">
+        <h3><i class="fa-solid fa-building"></i> Society Office</h3>
+        <address>
+          <p><i class="fa-solid fa-location-dot"></i> Ground Floor, A-Wing, Rishikesh CHS,<br />Sector-34, Kamothe, Mansarovar, Navi Mumbai</p>
+          <p><i class="fa-regular fa-clock"></i> Office Hours: Mon–Sat, 7:00 PM – 9:00 PM</p>
+          <p><i class="fa-solid fa-phone"></i> <a href="tel:+919800000004">+91 98000 00004</a> (Society Manager)</p>
+          <p><i class="fa-solid fa-envelope"></i> <a href="mailto:office@rishikeshchs.in">office@rishikeshchs.in</a></p>
+        </address>
+      </div>
+
+      <div class="contact-info-card glass">
+        <h3><i class="fa-solid fa-phone"></i> Emergency Contacts</h3>
+        <div class="emergency-list">
+          <div class="emergency-item">
+            <span>Chairman — Sachin Misal</span>
+            <a href="tel:+919800000001">+91 98000 00001</a>
+          </div>
+          <div class="emergency-item">
+            <span>Secretary — Arvind Turalkar</span>
+            <a href="tel:+919800000002">+91 98000 00002</a>
+          </div>
+          <div class="emergency-item">
+            <span>Treasurer — Nitin Kadam</span>
+            <a href="tel:+919800000003">+91 98000 00003</a>
+          </div>
+          <div class="emergency-item">
+            <span>Society Manager</span>
+            <a href="tel:+919800000004">+91 98000 00004</a>
+          </div>
+          <div class="emergency-item">
+            <span>Plumbing / Water</span>
+            <a href="tel:+919800000005">+91 98000 00005</a>
+          </div>
+          <div class="emergency-item">
+            <span>Electrical / Lift AMC</span>
+            <a href="tel:+919800000006">+91 98000 00006</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-info-card glass">
+        <h3><i class="fa-solid fa-map"></i> Find Us</h3>
+        <div class="map-placeholder">
+          <i class="fa-solid fa-map-location-dot"></i>
+          <p>403, Link Road, Andheri West<br />Near D.N. Nagar Metro Station</p>
+          <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="btn btn--ghost" style="margin-top:12px;font-size:0.85rem">
+            <i class="fa-solid fa-directions"></i> Get Directions
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+
+<!-- ══════════════════════════════════════
+     FOOTER
+══════════════════════════════════════ -->
+<footer class="footer" id="footer" role="contentinfo">
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <a href="#hero" class="nav__logo">
+        <span class="nav__logo-mark">R</span>
+        <div class="nav__logo-text-wrap">
+          <span class="nav__logo-name">Rishikesh <em>CHS</em></span>
+          <span class="nav__logo-sub">Andheri West, Mumbai</span>
+        </div>
+      </a>
+      <p>Rishikesh Co-operative Housing Society<br />Registered under MCS Act 1960 · Est. 1998</p>
+      <p class="footer__reg">Reg. No: MUM/RHS/12345/1998</p>
+    </div>
+    <nav class="footer__nav" aria-label="Footer navigation">
+      <div class="footer__col">
+        <h3>Resident Services</h3>
+        <a href="#quick-access">Pay Maintenance</a>
+        <a href="#announcements">View Notices</a>
+        <a href="#residents">Raise Complaint</a>
+        <a href="#residents">Request Documents</a>
+        <a href="#login">Member Login</a>
+      </div>
+      <div class="footer__col">
+        <h3>Society</h3>
+        <a href="#committee">Managing Committee</a>
+        <a href="#about-society">About the Society</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Office Hours</a>
+        <a href="#contact">Emergency Contacts</a>
+      </div>
+      <div class="footer__col">
+        <h3>Contact</h3>
+        <a href="mailto:office@rishikeshchs.in">office@rishikeshchs.in</a>
+        <a href="tel:+919820005678">+91 98200 05678</a>
+        <span>403 Link Road,<br />Andheri West, Mumbai 400053</span>
+      </div>
+    </nav>
+  </div>
+  <div class="footer__bottom">
+    <div class="container footer__bottom-inner">
+      <p>&copy; 2025 Rishikesh Co-operative Housing Society. All rights reserved.</p>
+      <div class="footer__legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Society Bye-Laws</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button class="btt" id="btt" aria-label="Back to top">
+  <i class="fa-solid fa-arrow-up"></i>
+</button>
+
+<!-- ══════════════════════════════════════
+     FEATURE DETAIL MODAL
+══════════════════════════════════════ -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+  <div class="modal__backdrop" id="modalBackdrop"></div>
+  <div class="modal__panel">
+    <button class="modal__close" id="modalClose" aria-label="Close modal">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="modal__icon" id="modalIcon" aria-hidden="true"></div>
+    <p class="modal__tag" id="modalTag"></p>
+    <h2 class="modal__title" id="modal-title"></h2>
+    <p class="modal__desc" id="modalDesc"></p>
+    <div class="modal__how">
+      <h3>How to use this</h3>
+      <ol class="modal__steps" id="modalSteps"></ol>
+    </div>
+    <div class="modal__benefits">
+      <h3>What you can do</h3>
+      <ul class="modal__list" id="modalList"></ul>
+    </div>
+    <div class="modal__footer">
+      <a href="#login" class="btn btn--primary modal__cta" id="modalCta">
+        <i class="fa-solid fa-right-to-bracket"></i> Go to Member Portal
+      </a>
+    </div>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>

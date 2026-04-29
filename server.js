@@ -27,6 +27,31 @@ app.use('/api/notices', noticeRoutes);
 app.use('/api/complaints', complaintRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 
+// --- DevOps / MLOps Routes ---
+
+// Prometheus Metrics
+const promClient = require('prom-client');
+promClient.collectDefaultMetrics({ prefix: 'residential_app_' });
+
+app.get('/metrics', async (req, res) => {
+  try {
+    res.set('Content-Type', promClient.register.contentType);
+    res.end(await promClient.register.metrics());
+  } catch (ex) {
+    res.status(500).end(ex);
+  }
+});
+
+// Health Check
+app.get('/health', (req, res) => {
+  res.status(200).json({
+    status: 'UP',
+    uptime: process.uptime(),
+    timestamp: new Date().toISOString()
+  });
+});
+
+
 // Catch-all for HTML files (optional but good for SPA behavior if needed)
 app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'admin.html')));
 

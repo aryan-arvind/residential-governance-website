@@ -1,0 +1,7 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'residential-governance-app'
+    static_configs:
+      - targets: ['residential-app:3000']
